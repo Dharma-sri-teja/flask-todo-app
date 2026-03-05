@@ -13,19 +13,18 @@ html = """
 </form>
 
 <ul>
-{% for todo in todos %}
-<li>{{todo}}</li>
+{% for task in todos %}
+<li>{{task}}</li>
 {% endfor %}
 </ul>
 """
 
-@app.route("/", methods=["GET", "POST"])
-def index():
+@app.route("/", methods=["GET","POST"])
+def home():
     if request.method == "POST":
-        task = request.form.get("task")
-        if task:
-            todos.append(task)
-        return redirect(url_for("index"))
+        task = request.form["task"]
+        todos.append(task)
+        return redirect(url_for("home"))
     return render_template_string(html, todos=todos)
 
 if __name__ == "__main__":
